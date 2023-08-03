@@ -50,18 +50,23 @@ const login = async (req, res) => {
 
 const logout = async (req, res) => {
   const { _id } = req.user;
-  await User.findByIdAndUpdate(_id, { token: "" });
+  console.log(req.user);
+  await User.findByIdAndUpdate(_id, { token: null });
 
-  res.json({
+  res.status(204).json({
+    status: "success",
+    code: 204,
     message: "Logout success",
   });
 };
 
 const getCurrent = async (req, res) => {
-  const { email, name } = req.user;
-  res.json({
-    email,
-    name,
+  const { email, subscription } = req.user;
+  res.status(200).json({
+    status: "success",
+    code: 200,
+    email: email,
+    subscription: subscription,
   });
 };
 
